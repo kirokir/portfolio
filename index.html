@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dear & Co — Create your portfolio</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --surface: rgba(255,255,255,0.04);
+      --glass: rgba(255,255,255,0.06);
+      --text:#f7f7fb;
+      --muted: rgba(255,255,255,0.75);
+      --accent: #a78bfa;
+      --accent-2: #ffd166;
+    }
+    :root.light{
+      --bg: linear-gradient(180deg,#f7f9fc 0%, #eef2f7 100%);
+      --surface: rgba(255,255,255,0.7);
+      --glass: rgba(255,255,255,0.8);
+      --text:#0b1020;
+      --muted: rgba(10,10,20,0.7);
+      --accent: #6d28d9;
+      --accent-2: #b45309;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: var(--text);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:3rem;
+      transition: background 400ms ease, color 400ms ease;
+    }
+
+    /* centered card */
+    .card{
+      width:100%;
+      max-width:980px;
+      padding: clamp(2rem, 4vw, 4rem);
+      border-radius:20px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      backdrop-filter: blur(18px) saturate(120%);
+      -webkit-backdrop-filter: blur(18px) saturate(120%);
+      box-shadow: 0 10px 40px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      text-align:center;
+      display:grid;
+      gap: clamp(1rem, 2vw, 1.8rem);
+      align-items:center;
+      justify-items:center;
+    }
+
+    /* big iconic header */
+    .brand{
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      line-height:0.9;
+      letter-spacing: -0.02em;
+      font-weight:800;
+      margin:0;
+      text-wrap:balance;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 6px 30px rgba(0,0,0,0.45);
+    }
+
+    .sub{
+      margin:0;
+      font-size: clamp(1.05rem, 1.8vw, 1.4rem);
+      color: var(--muted);
+      max-width:64ch;
+    }
+
+    .cta{
+      display:inline-grid;
+      grid-auto-flow:column;
+      gap:.8rem;
+      align-items:center;
+      margin-top:.6rem;
+    }
+
+    .link{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      padding:.7rem 1.1rem;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:700;
+      color:var(--text);
+      background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform .18s ease, box-shadow .18s ease;
+      box-shadow: 0 6px 22px rgba(2,6,23,0.45);
+    }
+    .link:focus{outline:3px solid rgba(124,77,255,0.18); outline-offset:4px}
+    .link:hover{transform:translateY(-4px); box-shadow:0 14px 40px rgba(2,6,23,0.5)}
+
+    /* small question text on bar */
+    .question{
+      font-weight:600;
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    /* toggle */
+    .controls{display:flex;gap:.6rem;align-items:center;}
+    .toggle{
+      width:46px;height:28px;border-radius:999px;background:linear-gradient(180deg,#ffffff22,#00000022);
+      border:1px solid rgba(255,255,255,0.06);
+      display:inline-grid;place-items:center;
+      cursor:pointer;
+    }
+    .toggle .dot{width:20px;height:20px;border-radius:50%;background:var(--accent);transform:translateX(-10px);transition:transform .28s cubic-bezier(.2,.9,.25,1);box-shadow:0 6px 18px rgba(124,77,255,0.22)}
+    body.light .toggle .dot{transform:translateX(10px); background:var(--accent-2); box-shadow:0 6px 18px rgba(255,209,102,0.22)}
+    body.light .card{background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(245,247,250,0.85)); box-shadow: 0 8px 30px rgba(10,15,25,0.06)}
+    body.light .link{background: linear-gradient(90deg, rgba(0,0,0,0.03), rgba(0,0,0,0.01)); color:var(--text)}
+
+    /* accessibility + motion prefs */
+    @media (prefers-reduced-motion: reduce){
+      .link, .toggle .dot { transition: none !important; }
+    }
+
+    @media (max-width:520px){
+      .brand{font-size: clamp(2.2rem, 12vw, 4.2rem)}
+      .card{padding: clamp(1.4rem, 6vw, 2.4rem)}
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="brand">
+    <h1 id="brand" class="brand">Dear &amp; Co</h1>
+    <p class="sub">Create your portfolio with us</p>
+
+    <div class="cta" role="group" aria-label="Call to action">
+      <a class="link" href="https://dear.is-a.dev/" target="_blank" rel="noopener">Visit Dear&Co →</a>
+
+      <div class="controls" aria-hidden="false">
+        <span class="question">Dark / Light</span>
+        <button class="toggle" id="modeToggle" aria-pressed="false" aria-label="Toggle dark and light mode">
+          <span class="dot" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function(){
+      const root = document.documentElement;
+      const btn = document.getElementById('modeToggle');
+
+      // Set initial theme based on prefers-color-scheme or saved preference
+      const saved = localStorage.getItem('dear_mode');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const startDark = saved ? saved === 'dark' : prefersDark;
+      if (!startDark) root.classList.add('light'), document.body.classList.add('light');
+      else document.body.classList.remove('light');
+
+      // Sync initial toggle state
+      btn.setAttribute('aria-pressed', startDark ? 'true' : 'false');
+      if (!startDark) btn.querySelector('.dot').style.transform = 'translateX(10px)';
+
+      btn.addEventListener('click', () => {
+        const isLight = document.body.classList.toggle('light');
+        btn.setAttribute('aria-pressed', (!isLight).toString());
+        // move knob visually
+        btn.querySelector('.dot').style.transform = isLight ? 'translateX(10px)' : 'translateX(-10px)';
+        localStorage.setItem('dear_mode', isLight ? 'light' : 'dark');
+      });
+
+      // Make whole card keyboard-friendly: space/enter toggles button when focused
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          btn.click();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
